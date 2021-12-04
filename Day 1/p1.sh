@@ -1,5 +1,5 @@
 
-INPUT="./input1.txt"
+INPUT="./input.txt"
 previous=""
 result=0
 
