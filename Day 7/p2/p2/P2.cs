@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace p2
 {
-    class Program
+    class P2
     {
         static void Main(string[] args)
         {
