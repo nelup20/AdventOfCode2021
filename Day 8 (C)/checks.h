@@ -9,3 +9,4 @@ bool is9(const char string[8], struct mapping map);
 bool mapExists(int numOfArgs, ...);
 bool charNotInMap(char charToCompare, int numOfArgs, ...);
 bool isMappingComplete(struct mapping map);
+bool isInSeq(char c);

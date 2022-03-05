@@ -28,7 +28,7 @@ int main() {
     file = fopen("../input.txt", "r");
     if(file){
         while((c = getc(file)) != EOF){
-            if(c == '\r'){
+            if(c == '\n'){
                 if(line[0] == '\n'){
                     memcpy(newStr, line + 1, 100);
                     finalResult += calculateEntry(newStr);
@@ -210,34 +210,36 @@ int calculateEntry(const char line[100]){
 }
 
 void computeDigits(int digits[4], const struct mapping map, const char line[100]) {
-    bool isInSeq = false;
     char str[8] = "";
-    int currDigit = 0;
 
-    for(int i = 61; i <= strlen(line); i++) {
+    for(int i = 61, currDigit = 0; i <= strlen(line); i++) {
         if (line[i] == '\r') {
             break;
         }
 
-        isInSeq = line[i] != ' ' && line[i] != '\0' && line[i] != '\n';
-        if(isInSeq){
+        if(isInSeq(line[i])){
             appendChar(str, line[i]);
-        } else {
-            if(strlen(str) == 2) digits[currDigit] = 1;
-            if(strlen(str) == 3) digits[currDigit] = 7;
-            if(strlen(str) == 4) digits[currDigit] = 4;
-            if(strlen(str) == 7) digits[currDigit] = 8;
-
-            if(strlen(str) == 5 && is2(str, map)) digits[currDigit] = 2;
-            if(strlen(str) == 5 && is3(str, map)) digits[currDigit] = 3;
-            if(strlen(str) == 5 && is5(str, map)) digits[currDigit] = 5;
-
-            if(strlen(str) == 6 && is0(str, map)) digits[currDigit] = 0;
-            if(strlen(str) == 6 && is6(str, map)) digits[currDigit] = 6;
-            if(strlen(str) == 6 && is9(str, map)) digits[currDigit] = 9;
-
-            memset(str, 0, 8);
-            currDigit++;
+            continue;
         }
+
+        if(strlen(str) == 2) digits[currDigit] = 1;
+        if(strlen(str) == 3) digits[currDigit] = 7;
+        if(strlen(str) == 4) digits[currDigit] = 4;
+        if(strlen(str) == 7) digits[currDigit] = 8;
+
+        if(strlen(str) == 5){
+            if(is2(str, map)) digits[currDigit] = 2;
+            if(is3(str, map)) digits[currDigit] = 3;
+            if(is5(str, map)) digits[currDigit] = 5;
+        }
+
+        if(strlen(str) == 6){
+            if(is0(str, map)) digits[currDigit] = 0;
+            if(is6(str, map)) digits[currDigit] = 6;
+            if(is9(str, map)) digits[currDigit] = 9;
+        }
+
+        memset(str, 0, 8);
+        currDigit++;
     }
 }

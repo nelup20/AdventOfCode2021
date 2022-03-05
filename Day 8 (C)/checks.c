@@ -38,6 +38,10 @@ bool isMappingComplete(struct mapping map){
     return mapExists(7, map.top, map.topL, map.topR, map.mid, map.bot, map.botL, map.botR);
 }
 
+bool isInSeq(const char c){
+    return c != ' ' && c != '\0' && c != '\n';
+}
+
 bool is2(const char string[8], const struct mapping map){
     for(int i = 0; i < 5; i++){
         if(charNotInMap(string[i], 5, map.top, map.topR, map.mid, map.botL, map.bot)){
